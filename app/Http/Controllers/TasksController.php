@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TaskMail;
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 
 class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where('user_id',auth()->id())->get();
+        $tasks = Task::where('user_id',auth()->id())->paginate(5);
         //dd($tasks);
         return view('home', compact('tasks'));
     }
@@ -41,6 +43,7 @@ class TasksController extends Controller
 
     public function update(Request $request, Task $task)
     {
+        //dd($task);
         if(isset($_POST['delete'])) {
             $task->delete();
             return redirect('/home');
@@ -57,11 +60,28 @@ class TasksController extends Controller
     }
 
     public function store(Request $request, Task $task){
-
         $task->update([
             'status' => $request->has('status') ? 1 : 0
         ]);
+        $emailAddress = auth()->user()->email;
+
+        //Send email
+        $toEmail    =   $emailAddress;
+        $data       =   array(
+            "description"    =>   $request->description,
+            "status"    =>   $request->status
+        );
+        // pass dynamic message to mail class
+        Mail::to($toEmail)->send(new TaskMail($data));
 
         return redirect()->back()->with('success', 'Task updated successfully');
+    }
+
+    public function search(Request $request)
+    {
+        $taskDescription = $request->searchQuery;
+        $tasks = Task::where('description','LIKE','%'.$taskDescription.'%')
+            ->paginate(5);
+        return view('home', compact('tasks'));
     }
 }
