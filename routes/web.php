@@ -33,4 +33,11 @@ Route::middleware(['auth'])->group(function(){
     Route::post('/check-task/{task}', [TasksController::class, 'store'])->name('status-check');
     Route::get('/search-task/', [TasksController::class, 'search'])->name('task.search');
 
+
+    Route::get('/guzzler/', [\App\Http\Controllers\GuzzlerController::class, 'index'])->name('posts');
+    Route::get('/posts/', [\App\Http\Controllers\GuzzlerController::class, 'fetchPosts'])->name('posts.all');
+    Route::post('/posts/', [\App\Http\Controllers\GuzzlerController::class, 'createPost'])->name('posts.add');
+    Route::put('/post-update/', [\App\Http\Controllers\GuzzlerController::class, 'updatePost'])->name('posts.update');
+    Route::delete('/posts/{post}', [\App\Http\Controllers\GuzzlerController::class, 'deletePost'])->name('posts.delete');
+
 });

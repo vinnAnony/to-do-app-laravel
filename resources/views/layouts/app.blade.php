@@ -31,7 +31,12 @@
                             <a class="no-underline hover:underline" href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
                     @else
-                        <span>{{ Auth::user()->name }}</span>
+                        <a class="no-underline hover:underline" href="{{ route('home') }}">Home</a>
+                        <a class="no-underline hover:underline" href="{{ route('posts') }}">Guzzle</a>
+                        <span>{{ Auth::user()->present()->name }}</span>
+                        <div class="inline-block rounded-full bg-gray-300 h-10 line-height-username1">
+                            <img class="rounded-full float-left h-full" src="{{asset('storage/images/avatars/'.Auth::user()->profile_url )}}">
+                        </div>
 
                         <a href="{{ route('logout') }}"
                            class="no-underline hover:underline"
