@@ -27,16 +27,17 @@ class GuzzlerController extends Controller
 
     public function createPost(Request $request)
     {
-        $response = Http::post('https://jsonplaceholder.typicode.com/posts', $request->all());
+        $client = new Client();
+        $response = $client->post('https://jsonplaceholder.typicode.com/posts', $request->all());
 
-        return response()->json(json_decode($response));
+        return response()->json($response);
 
     }
 
     public function updatePost(Request $request)
     {
-
-        $response = Http::put('https://jsonplaceholder.typicode.com/posts/'.$request->id, $request
+        $client = new Client();
+        $response = $client->put('https://jsonplaceholder.typicode.com/posts/'.$request->id, $request
             ->only(['userId','title','body']));
 
         return response()->json($response);
@@ -45,7 +46,8 @@ class GuzzlerController extends Controller
 
     public function deletePost($id)
     {
-        $response = Http::delete('https://jsonplaceholder.typicode.com/posts/'.$id );
+        $client = new Client();
+        $response = $client->delete('https://jsonplaceholder.typicode.com/posts/'.$id );
 
         return response()->json($response );
     }

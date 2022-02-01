@@ -122,7 +122,7 @@
                     });
             },
             editPost(post){
-                axios.put("http://to-do.appp/post-update/" + post.id,post)
+                axios.put("http://to-do.appp/posts/" + post.id,post)
                     .then(response => {
                         this.editMode = false;
                         console.log(response.data)

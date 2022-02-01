@@ -37,7 +37,8 @@ Route::middleware(['auth'])->group(function(){
     Route::get('/guzzler/', [\App\Http\Controllers\GuzzlerController::class, 'index'])->name('posts');
     Route::get('/posts/', [\App\Http\Controllers\GuzzlerController::class, 'fetchPosts'])->name('posts.all');
     Route::post('/posts/', [\App\Http\Controllers\GuzzlerController::class, 'createPost'])->name('posts.add');
-    Route::put('/post-update/', [\App\Http\Controllers\GuzzlerController::class, 'updatePost'])->name('posts.update');
+    Route::put('/post-update/{post}', [\App\Http\Controllers\GuzzlerController::class, 'updatePost'])->name('posts.update');
     Route::delete('/posts/{post}', [\App\Http\Controllers\GuzzlerController::class, 'deletePost'])->name('posts.delete');
 
 });
+//http://to-do.appp/post-update/1
