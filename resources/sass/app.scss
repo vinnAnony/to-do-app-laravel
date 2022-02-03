@@ -7,3 +7,14 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+@import '~@fortawesome/fontawesome-free/css/fontawesome';
+@import '~@fortawesome/fontawesome-free/css/regular';
+@import '~@fortawesome/fontawesome-free/css/solid';
+@import '~@fortawesome/fontawesome-free/css/brands';
+
+
+@import '~sweetalert2/src/variables';
+
+//$swal2-background: #990000;
+
+@import '~sweetalert2/src/sweetalert2';

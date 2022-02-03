@@ -19,16 +19,16 @@ Route::get('/', function () {
 });
 Auth::routes();
 
-Route::get('/home', [\App\Http\Controllers\TasksController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function(){
-    Route::get('/dashboard',[TasksController::class, 'index'])->name('dashboard');
+    Route::get('/home', [\App\Http\Controllers\TasksController::class, 'index'])->name('home');
 
     Route::get('/task',[TasksController::class, 'add']);
-    Route::post('/task',[TasksController::class, 'create']);
+    Route::post('/task',[TasksController::class, 'create'])->name('task.create');
 
-    Route::get('/task/{task}', [TasksController::class, 'edit']);
-    Route::post('/task/{task}', [TasksController::class, 'update'])->name('up.Delete');
+    Route::get('/task-edit/{task}', [TasksController::class, 'edit'])->name('task.edit');
+    Route::post('/task-update', [TasksController::class, 'update'])->name('task.update');
+    Route::post('/task-delete/{task}', [TasksController::class, 'deleteTask'])->name('task.delete');
 
     Route::post('/check-task/{task}', [TasksController::class, 'store'])->name('status-check');
     Route::get('/search-task/', [TasksController::class, 'search'])->name('task.search');

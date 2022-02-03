@@ -1,9 +1,7 @@
 <template>
 <div>
-    <div class="w-full max-w-xl mx-auto bg-white px-5 py-7">
+    <div class="w-full max-w-xl mx-auto bg-white px-5 py-7 mt-10">
         <form @submit.prevent="editMode ? editPost(postData) : addPost()">
-            <label class="font-semibold text-sm text-gray-600 pb-1 block">UserId</label>
-            <input v-model="postData.userId" type="number" required class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
             <label class="font-semibold text-sm text-gray-600 pb-1 block">Title</label>
             <input v-model="postData.title" type="text" required class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
             <label class="font-semibold text-sm text-gray-600 pb-1 block">Body</label>
@@ -26,9 +24,6 @@
                     <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
                     <tr>
                         <th class="p-2 whitespace-nowrap">
-                            <div class="font-semibold text-left">User Id</div>
-                        </th>
-                        <th class="p-2 whitespace-nowrap">
                             <div class="font-semibold text-center">Title</div>
                         </th>
                         <th class="p-2 whitespace-nowrap">
@@ -45,15 +40,10 @@
                     </tr>
                     <tr v-for="(post,index) in posts" :key="index">
                         <td class="p-2 whitespace-nowrap">
-                            <div class="flex items-center">
-                                <div class="font-medium text-gray-800">{{post.userId}}</div>
-                            </div>
+                            <div class="">{{post.title}}</div>
                         </td>
                         <td class="p-2 whitespace-nowrap">
-                            <div class="text-center">{{post.title}}</div>
-                        </td>
-                        <td class="p-2 whitespace-nowrap">
-                            <div class="text-center font-medium text-green-500">{{post.body}}</div>
+                            <div class="font-medium text-green-500">{{post.body}}</div>
                         </td>
                         <td class="p-2 whitespace-nowrap float-right">
                             <button @click="toggleEdit(post)" type="button" class="mb-3 mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
@@ -94,26 +84,50 @@
         },
         methods:{
             async deletePost(id) {
-                let x = window.confirm("Are you sure you want to delete post?");
+                Vue.swal({
+                    title: 'Do you want to delete post?',
+                    showCancelButton: true,
+                    confirmButtonText: '`Delete`',
+                    confirmButtonColor: '#d64c58',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        axios.delete(
+                            "http://to-do.appp/posts/" + id
+                        )
+                            .then(response => {
+                                if (response.status === 200){
+                                    this.posts =  this.posts.filter((post) => post.id != id);
+                                    Vue.swal({
+                                        toast: true,
+                                        position: 'top-end',
+                                        showConfirmButton: false,
+                                        timer: 3000,
+                                        icon: 'success',
+                                        title: 'Deleted successfully'
+                                    });
+                                }
+                            })
+                            .catch(error => {
+                                console.error("There was an error!", error);
+                            });
+                    }
+                });
 
-                if (x) {
-                    await axios.delete(
-                        "http://to-do.appp/posts/" + id
-                    )
-                        .then(response => {
-                            console.log(response.data);
-                        })
-                        .catch(error => {
-                            console.error("There was an error!", error);
-                        });
-                }
             },
             addPost(){
                 axios.post("http://to-do.appp/posts/",this.postData)
                     .then(response => {
                         if (response.status === 200){
-                            this.postData = {};
-                            alert("Added")
+                            this.posts.unshift(this.postData);
+                            this.resetForm();
+                            Vue.swal({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                icon: 'success',
+                                title: 'Created successfully'
+                            });
                         }
                         console.log(response.data);
                     })
@@ -121,11 +135,26 @@
                         console.error("There was an error!", error);
                     });
             },
-            editPost(post){
-                axios.put("http://to-do.appp/posts/" + post.id,post)
+            editPost(){
+                axios.put("http://to-do.appp/post-update/" + this.postData.id,this.postData)
                     .then(response => {
-                        this.editMode = false;
-                        console.log(response.data)
+                        if (response.status === 200){
+                            this.posts = this.posts.map((pst) => {
+                                if (pst.id == this.postData.id){
+                                    return this.postData;
+                                }
+                                return pst;
+                            });
+                            Vue.swal({
+                                toast: true,
+                                position: 'top-end',
+                                showConfirmButton: false,
+                                timer: 3000,
+                                icon: 'success',
+                                title: 'Updated successfully'
+                            });
+                            this.resetForm();
+                        }
                     })
                     .catch(error => {
                         console.error("There was an error!", error);
@@ -134,7 +163,7 @@
             },
             toggleEdit(post){
                 this.editMode = true;
-                this.postData = post;
+                this.postData = {...post};
             },
             resetForm(){
                 this.editMode = false;

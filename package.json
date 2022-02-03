@@ -10,6 +10,7 @@
         "production": "mix --production"
     },
     "devDependencies": {
+        "@fortawesome/fontawesome-free": "^5.15.4",
         "@popperjs/core": "^2.10.2",
         "@tailwindcss/ui": "^0.3",
         "autoprefixer": "^9.6",
@@ -26,5 +27,8 @@
         "vue": "^2.6.12",
         "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
+    },
+    "dependencies": {
+        "vue-sweetalert2": "^5.0.2"
     }
 }

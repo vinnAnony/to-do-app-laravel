@@ -12,7 +12,8 @@ class TasksController extends Controller
 {
     public function index()
     {
-        $tasks = Task::where('user_id',auth()->id())->paginate(5);
+        $tasks = Task::where('user_id',auth()->id())->latest()
+            ->paginate(5);
         //dd($tasks);
         return view('home', compact('tasks'));
     }
@@ -26,37 +27,35 @@ class TasksController extends Controller
         $task->description = $request->description;
         $task->user_id = auth()->user()->id;
         $task->save();
-        return redirect('/home');
+        return redirect()->back()->with('message', 'Task created');
     }
 
     public function edit(Task $task)
     {
-
         if (auth()->user()->id == $task->user_id)
         {
-            return view('edit', compact('task'));
+            return redirect()->back()->with('task',$task);
         }
         else {
             return redirect('/home');
         }
     }
 
-    public function update(Request $request, Task $task)
+    public function deleteTask(Request $request, Task $task)
     {
-        //dd($task);
-        if(isset($_POST['delete'])) {
-            $task->delete();
-            return redirect('/home');
-        }
-        else
-        {
-            $this->validate($request, [
-                'description' => 'required'
-            ]);
-            $task->description = $request->description;
-            $task->save();
-            return redirect('/home');
-        }
+        $task->delete();
+        return redirect()->back()->with('message', 'Task deleted');
+    }
+
+    public function update(Request $request)
+    {
+        //dd(json_decode($request->task)->id);
+        $taskId = json_decode($request->task)->id;
+        $task=Task::Find($taskId);
+        $task->description=$request->description;
+        $task->update();
+
+        return redirect('/home')->with('message', 'Task updated');
     }
 
     public function store(Request $request, Task $task){
@@ -74,7 +73,7 @@ class TasksController extends Controller
         // pass dynamic message to mail class
         Mail::to($toEmail)->send(new TaskMail($data));
 
-        return redirect()->back()->with('success', 'Task updated successfully');
+        return redirect()->back(200)->with('success', 'Task checked successfully');
     }
 
     public function search(Request $request)
