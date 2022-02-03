@@ -73,13 +73,14 @@ class TasksController extends Controller
         // pass dynamic message to mail class
         Mail::to($toEmail)->send(new TaskMail($data));
 
-        return redirect()->back(200)->with('success', 'Task checked successfully');
+        return redirect()->back()->with('success', 'Task checked successfully');
     }
 
     public function search(Request $request)
     {
         $taskDescription = $request->searchQuery;
         $tasks = Task::where('description','LIKE','%'.$taskDescription.'%')
+            ->latest()
             ->paginate(5);
         return view('home', compact('tasks'));
     }

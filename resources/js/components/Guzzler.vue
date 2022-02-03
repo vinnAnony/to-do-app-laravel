@@ -5,13 +5,15 @@
             <label class="font-semibold text-sm text-gray-600 pb-1 block">Title</label>
             <input v-model="postData.title" type="text" required class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
             <label class="font-semibold text-sm text-gray-600 pb-1 block">Body</label>
-            <textarea v-model="postData.body" required class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
-            <button type="submit" class="transition duration-200 bg-indigo-500 hover:bg-purple-600 focus:bg-purple-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
-                <span class="inline-block mr-2">{{editMode ? 'Edit' : 'Add'}}</span>
-            </button>
-            <button @click="resetForm" class="mt-3 transition duration-200 bg-red-500 hover:bg-red-600 focus:bg-red-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
-                <span class="inline-block mr-2">Reset</span>
-            </button>
+            <textarea v-model="postData.body" rows="8" required class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full" />
+            <div class="flex justify-evenly">
+                <button type="submit" class="w-40 m-3 transition duration-200 bg-indigo-500 hover:bg-purple-600 focus:bg-purple-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white  py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
+                    <span class="inline-block">{{editMode ? 'Edit' : 'Add'}}</span>
+                </button>
+                <button @click="resetForm" class="w-40 m-3 transition duration-200 bg-red-500 hover:bg-red-600 focus:bg-red-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white  py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block">
+                    <span class="inline-block">Reset</span>
+                </button>
+            </div>
         </form>
     </div>
     <div class="w-full max-w-2xl mx-auto bg-white shadow-lg rounded-sm border border-gray-200 mt-3">
@@ -47,10 +49,10 @@
                         </td>
                         <td class="p-2 whitespace-nowrap float-right">
                             <button @click="toggleEdit(post)" type="button" class="mb-3 mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                Edit
+                                <span class="fa fa-edit"></span>
                             </button>
                             <button @click="deletePost(post.id)" type="button" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
-                                Delete
+                                <span class="fa fa-trash"></span>
                             </button>
                         </td>
                     </tr>

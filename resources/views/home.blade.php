@@ -96,7 +96,7 @@
                         </div>
                     @empty
                             <div class="text-sm border border-t-8 rounded text-red-700 border-red-600 bg-red-100 px-3 py-4 mb-4" role="alert">
-                               Oops! You don't have any tasks.
+                               Oops! 💀 You don't have any tasks.
                             </div>
                     @endforelse
 

@@ -2156,6 +2156,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Guzzler",
@@ -3438,7 +3440,7 @@ var render = function () {
               ],
               staticClass:
                 "border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full",
-              attrs: { required: "" },
+              attrs: { rows: "8", required: "" },
               domProps: { value: _vm.postData.body },
               on: {
                 input: function ($event) {
@@ -3450,33 +3452,31 @@ var render = function () {
               },
             }),
             _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "transition duration-200 bg-indigo-500 hover:bg-purple-600 focus:bg-purple-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block",
-                attrs: { type: "submit" },
-              },
-              [
-                _c("span", { staticClass: "inline-block mr-2" }, [
-                  _vm._v(_vm._s(_vm.editMode ? "Edit" : "Add")),
-                ]),
-              ]
-            ),
-            _vm._v(" "),
-            _c(
-              "button",
-              {
-                staticClass:
-                  "mt-3 transition duration-200 bg-red-500 hover:bg-red-600 focus:bg-red-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white w-full py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block",
-                on: { click: _vm.resetForm },
-              },
-              [
-                _c("span", { staticClass: "inline-block mr-2" }, [
-                  _vm._v("Reset"),
-                ]),
-              ]
-            ),
+            _c("div", { staticClass: "flex justify-evenly" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "w-40 m-3 transition duration-200 bg-indigo-500 hover:bg-purple-600 focus:bg-purple-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white  py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block",
+                  attrs: { type: "submit" },
+                },
+                [
+                  _c("span", { staticClass: "inline-block" }, [
+                    _vm._v(_vm._s(_vm.editMode ? "Edit" : "Add")),
+                  ]),
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "w-40 m-3 transition duration-200 bg-red-500 hover:bg-red-600 focus:bg-red-700 focus:shadow-sm focus:ring-4 focus:ring-blue-500 focus:ring-opacity-50 text-white  py-2.5 rounded-lg text-sm shadow-sm hover:shadow-md font-semibold text-center inline-block",
+                  on: { click: _vm.resetForm },
+                },
+                [_c("span", { staticClass: "inline-block" }, [_vm._v("Reset")])]
+              ),
+            ]),
           ]
         ),
       ]
@@ -3538,11 +3538,7 @@ var render = function () {
                                 },
                               },
                             },
-                            [
-                              _vm._v(
-                                "\n                                Edit\n                            "
-                              ),
-                            ]
+                            [_c("span", { staticClass: "fa fa-edit" })]
                           ),
                           _vm._v(" "),
                           _c(
@@ -3557,11 +3553,7 @@ var render = function () {
                                 },
                               },
                             },
-                            [
-                              _vm._v(
-                                "\n                                Delete\n                            "
-                              ),
-                            ]
+                            [_c("span", { staticClass: "fa fa-trash" })]
                           ),
                         ]
                       ),
