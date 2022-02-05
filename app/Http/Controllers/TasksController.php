@@ -21,7 +21,7 @@ class TasksController extends Controller
     public function create(Request $request)
     {
         $this->validate($request, [
-            'description' => 'required'
+            'description' => ['required','regex:/^[a-zA-Z ]+$/']
         ]);
         $task = new Task();
         $task->description = $request->description;
@@ -49,7 +49,9 @@ class TasksController extends Controller
 
     public function update(Request $request)
     {
-        //dd(json_decode($request->task)->id);
+        $this->validate($request, [
+            'description' => ['regex:/^[a-zA-Z ]+$/']
+        ]);
         $taskId = json_decode($request->task)->id;
         $task=Task::Find($taskId);
         $task->description=$request->description;

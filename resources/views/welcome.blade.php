@@ -18,17 +18,16 @@
     @if(Route::has('login'))
         <div class="absolute top-0 right-0 mt-4 mr-4 space-x-4 sm:mt-6 sm:mr-6 sm:space-x-6">
             @auth
-                <a href="{{ url('/home') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Home') }}</a>
+                <a href="{{ url('/home') }}" class="no-underline hover:gray-900  text-teal-800 font-semibold font-heading space-x-12">{{ __('Home') }}</a>
             @else
-                <a href="{{ route('login') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Login') }}</a>
+                <a href="{{ route('login') }}" class="no-underline hover:gray-900  text-teal-800 font-semibold font-heading space-x-12">{{ __('Login') }}</a>
                 @if (Route::has('register'))
-                    <a href="{{ route('register') }}" class="no-underline hover:underline text-sm font-normal text-teal-800 uppercase">{{ __('Register') }}</a>
+                    <a href="{{ route('register') }}" class="no-underline hover:gray-900 text-teal-800 font-semibold font-heading space-x-12">{{ __('Register') }}</a>
                 @endif
             @endauth
         </div>
     @endif
-
-    <div class="min-h-screen flex items-center justify-center">
+    <div class="min-h-screen flex items-center justify-center m-3">
         <div class="flex justify-center align-center h-full">
             <div class="bg-indigo-600 text-white rounded shadow-xl py-5 px-5 w-full lg:w-10/12 xl:w-3/4">
                 <div class="flex flex-wrap -mx-3 items-center justify-center align-center">

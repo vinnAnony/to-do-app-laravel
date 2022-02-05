@@ -46,7 +46,7 @@
                         <h1 class="text-xl mt-2 text-center font-semibold text-gray-600">Task</h1>
                         <div class="mt-6 flex space-x-4 justify-center">
                             <input placeholder="Add new task"
-                                   class="bg-gray-100 rounded-md py-2 px-4 border-2 outline-none @error('description') border-red-500 @enderror"
+                                   class="bg-gray-100 rounded-md py-2 pl-1 border-2 outline-none @error('description') border-red-500 @enderror"
                                    @if(session('task')) value="{{session('task')->description}}" @endif
                                    name="description"
                                    required>
@@ -74,15 +74,17 @@
                                 <div class="h-4 w-48 text-center rounded @if($task->status)line-through @endif">
                                     {{$task->description}}
                                 </div>
-                                @if(!$task->status)
+
                                     <div class="w-24 h-6">
+                                        @if(!$task->status)
                                         <button class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
                                             <a href="{{route('task.edit',$task->id)}}">
                                                 Edit
                                             </a>
                                         </button>
+                                        @endif
                                     </div>
-                                @endif
+
 
                                 <div class="w-24 h-6">
                                     <button onclick="deleteConfirmation()" class="text-sm bg-red-500 hover:bg-red-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline">
