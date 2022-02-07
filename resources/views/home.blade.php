@@ -19,7 +19,7 @@
                 <div class="flex items-center mx-2 bg-white rounded-lg mb-4 mt-3 md:mx-auto">
                     <div class="w-full">
                         <input type="search" name="searchQuery" class="w-full px-4 py-1 text-gray-800 rounded-full focus:outline-none"
-                               placeholder="Search">
+                               placeholder="Search" required>
                     </div>
                     <div>
                         <button onclick="event.preventDefault();document.getElementById('taskSearch').submit();" class="flex items-center bg-blue-500 justify-center w-12 h-12 text-white rounded-r-lg">

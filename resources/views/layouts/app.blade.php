@@ -26,9 +26,9 @@
         <section class="relative mx-auto">
             <!-- navbar -->
             <nav>
-                <div class="flex justify-between bg-gray-900 text-white w-screen sm:hidden">
+                <div class="flex justify-between bg-gray-900 text-white w-screen">
                     <div class="px-5 xl:px-12 py-6 flex w-full items-center">
-                        <a class="text-3xl font-bold font-heading" href="{{ url('/') }}">
+                        <a id="logo" class="text-3xl font-bold font-heading" href="{{ url('/') }}">
                             {{ config('app.name', 'Hot Tasks') }}
                         </a>
                         <!-- Nav Links -->
@@ -52,26 +52,27 @@
                         </ul>
 
                     </div>
-                    <div class="flex mr-6 items-center">
+                    <div id="prof-pic" class="flex mr-6 items-center">
                         <div class="inline-block rounded-full h-10 w-10 border-radius-10">
                             <img class="rounded-full h-10 w-10 border-radius-10" src="{{asset('storage/images/avatars/'.Auth::user()->profile_url )}}">
                         </div>
                     </div>
                     @endguest
 
-                    <a class="self-center mr-12 lg:hidden"id="navbar-burger">
+                    <a class="self-center mr-12 lg:hidden" id="navbar-burger">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 hover:text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                         </svg>
                     </a>
 
-                    <div class="hidden flex items-center justify-center py-4" id="mobile-menu">
-                        <div class=" sm:flex sm:items-center">
+                    <div class="hidden flex items-center justify-center py-4" id="">
+                        <div class="sm:flex sm:items-center">
                             <ul class="">
-                                <li class="active"><a href="index.html" class="block text-sm px-2 py-4 text-white bg-green-500 font-semibold">Home</a></li>
-                                <li><a href="#services" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Services</a></li>
-                                <li><a href="#about" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">About</a></li>
-                                <li><a href="#contact" class="block text-sm px-2 py-4 hover:bg-green-500 transition duration-300">Contact Us</a></li>
+                                <li><a href="{{ route('home') }}" class="block text-sm px-2 py-4 text-white font-semibold">Home</a></li>
+                                <li><a href="{{ route('posts') }}" class="block text-sm px-2 py-4 hover:bg-indigo-500 transition duration-300">Guzzler</a></li>
+                                <li><a href="{{ route('logout') }}" class="block text-sm px-2 py-4 hover:bg-indigo-500 transition duration-300"
+                                       onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+                                        Logout</a></li>
                             </ul>
                         </div>
                     </div>
@@ -83,6 +84,7 @@
     @yield('content')
 </div>
 
+<script src="{{ asset('js/jquery-3.6.0.min.js') }}"></script>
 <script type="text/javascript">
     function deleteConfirmation() {
         swal({
@@ -94,21 +96,20 @@
             cancelButtonText: "Cancel",
         }).then(function (value) {
             if (value) {
-                //event.preventDefault();
                 document.getElementById('deleteTaskForm').submit();
             }
         });
     }
+    $(document).ready(function() {
 
-    (function(){
-        const button = document.getElementById('navbar-burger'); // Hamburger Icon
-        const menu = document.getElementById('mobile-menu'); // Menu
+        const menu = document.getElementById('mobile-menu');
 
-        button.addEventListener('click', () => {
+        $("#navbar-burger").click(function(){
             menu.classList.toggle('hidden');
-            console.log("wiiii")
+            $("#logo").toggleClass('hidden');
+            $("#prof-pic").toggleClass('hidden');
         });
-    })();
+    });
 
 </script>
 </body>
